@@ -1,3211 +1,1314 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="大場会は石巻市を拠点に活動する経営者団体です。会員同士の交流と成長を通じて地域社会の発展に貢献します。">
-    <meta name="keywords" content="大場会,石巻市,経営者団体,地域貢献,ビジネスネットワーク">
-    <title>大場会 | 石巻市の経営者団体</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@400;500;600;700&display=swap">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <style>
-        /* リセットとベースの設定 */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            /* モダンなカラーパレット */
-            --primary: #3A5A78; /* 深みのある青色 */
-            --primary-light: #4F7393; 
-            --primary-dark: #2A4A68;
-            --secondary: #F0F5F9; /* 明るい背景色 */
-            --accent: #E67E22; /* アクセントオレンジ */
-            --accent-light: #F39C12;
-            --text-dark: #2C3E50;
-            --text-light: #7F8C8D;
-            --background: #FFFFFF;
-            --white: #FFFFFF;
-            --gray-light: #F5F7FA;
-            --gray: #E5E7EB;
-            --success: #2ECC71;
-            --warning: #F1C40F;
-            --error: #E74C3C;
-            
-            /* 洗練されたシャドウ */
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 15px 25px rgba(0, 0, 0, 0.12);
-            
-            /* フォント設定 */
-            --font-heading: 'Shippori Mincho', serif;
-            --font-body: 'Noto Sans JP', sans-serif;
-            
-            /* 角丸半径 */
-            --radius-xs: 4px;
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-            --radius-full: 9999px;
-            
-            /* トランジション */
-            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* セクションスペーシング */
-            --section-spacing: clamp(3rem, 10vw, 8rem);
-            --section-padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 3rem);
-            
-            /* コンテンツ幅 */
-            --content-width-xs: 600px;
-            --content-width-sm: 800px;
-            --content-width-md: 1000px;
-            --content-width-lg: 1200px;
-            --content-width-xl: 1400px;
-        }
-        
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --background: #1A202C;
-                --secondary: #2D3748;
-                --text-dark: #F7FAFC;
-                --text-light: #CBD5E0;
-                --gray-light: #2D3748;
-                --gray: #4A5568;
-            }
-        }
-        
-        html {
-            font-size: 16px;
-            scroll-behavior: smooth;
-            height: 100%;
-        }
-        
-        body {
-            font-family: var(--font-body);
-            background-color: var(--background);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-            padding-top: 70px; /* ヘッダーの高さ分のパディング */
-            min-height: 100%;
-            position: relative;
-        }
-        
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        a {
-            text-decoration: none;
-            color: var(--primary);
-            transition: color var(--transition-fast), transform var(--transition-fast);
-            position: relative;
-        }
-        
-        a:hover {
-            color: var(--primary-dark);
-        }
-        
-        p {
-            margin-bottom: 1.5rem;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-        
-        h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 900;
-        }
-        
-        h2 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-        }
-        
-        h3 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-        }
-        
-        h4 {
-            font-size: clamp(1.2rem, 2vw, 1.5rem);
-        }
-        
-        h5 {
-            font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-        }
-        
-        h6 {
-            font-size: clamp(1rem, 1vw, 1.1rem);
-        }
-        
-        /* 共通クラス */
-        .container {
-            width: 100%;
-            max-width: var(--content-width-lg);
-            margin: 0 auto;
-            padding: 0 clamp(1rem, 5vw, 2rem);
-            position: relative;
-        }
-        
-        .container-sm {
-            max-width: var(--content-width-sm);
-        }
-        
-        .container-md {
-            max-width: var(--content-width-md);
-        }
-        
-        .container-lg {
-            max-width: var(--content-width-lg);
-        }
-        
-        .container-xl {
-            max-width: var(--content-width-xl);
-        }
-        
-        .flex {
-            display: flex;
-        }
-        
-        .flex-col {
-            flex-direction: column;
-        }
-        
-        .items-center {
-            align-items: center;
-        }
-        
-        .justify-between {
-            justify-content: space-between;
-        }
-        
-        .justify-center {
-            justify-content: center;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        .grid {
-            display: grid;
-        }
-        
-        .gap-1 {
-            gap: 0.25rem;
-        }
-        
-        .gap-2 {
-            gap: 0.5rem;
-        }
-        
-        .gap-4 {
-            gap: 1rem;
-        }
-        
-        .gap-6 {
-            gap: 1.5rem;
-        }
-        
-        .gap-8 {
-            gap: 2rem;
-        }
-        
-        .gap-12 {
-            gap: 3rem;
-        }
-        
-        .gap-16 {
-            gap: 4rem;
-        }
-        
-        .w-full {
-            width: 100%;
-        }
-        
-        .mt-2 {
-            margin-top: 0.5rem;
-        }
-        
-        .mt-4 {
-            margin-top: 1rem;
-        }
-        
-        .mt-6 {
-            margin-top: 1.5rem;
-        }
-        
-        .mt-8 {
-            margin-top: 2rem;
-        }
-        
-        .mt-12 {
-            margin-top: 3rem;
-        }
-        
-        .mb-2 {
-            margin-bottom: 0.5rem;
-        }
-        
-        .mb-4 {
-            margin-bottom: 1rem;
-        }
-        
-        .mb-6 {
-            margin-bottom: 1.5rem;
-        }
-        
-        .mb-8 {
-            margin-bottom: 2rem;
-        }
-        
-        .mb-12 {
-            margin-bottom: 3rem;
-        }
-        
-        .py-2 {
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-        }
-        
-        .py-4 {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-        
-        .py-6 {
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-        }
-        
-        .py-8 {
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-        
-        .py-12 {
-            padding-top: 3rem;
-            padding-bottom: 3rem;
-        }
-        
-        .px-2 {
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-        }
-        
-        .px-4 {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        
-        .px-6 {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
-        
-        .px-8 {
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-        
-        .p-4 {
-            padding: 1rem;
-        }
-        
-        .p-6 {
-            padding: 1.5rem;
-        }
-        
-        .p-8 {
-            padding: 2rem;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        /* セクション共通スタイル */
-        .section {
-            padding: var(--section-padding);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .section-light {
-            background-color: var(--secondary);
-        }
-        
-        .section-dark {
-            background-color: var(--primary-dark);
-            color: var(--white);
-        }
-        
-        .section-wave {
-            position: relative;
-        }
-        
-        .section-wave::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' style='fill:%23ffffff;'/%3E%3C/svg%3E");
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: 1;
-        }
-        
-        .section-pattern {
-            position: relative;
-        }
-        
-        .section-pattern::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='currentColor' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.5;
-            z-index: 0;
-        }
-        
-        .section-title {
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            text-align: center;
-            margin-bottom: clamp(2rem, 5vw, 3rem);
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -0.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 4px;
-        }
-        
-        .section-description {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto clamp(2rem, 5vw, 3rem);
-            color: var(--text-light);
-            font-size: clamp(1rem, 2vw, 1.1rem);
-            line-height: 1.8;
-        }
-        
-        /* アニメーション */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .fade-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .fade-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .fade-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .fade-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .scale-in {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .scale-in.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        .stagger-item {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        
-        .stagger-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* ヘッダー */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            background-color: var(--white);
-            z-index: 1000;
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal), background-color var(--transition-normal);
-            box-shadow: var(--shadow);
-        }
-        
-        .header.transparent {
-            background-color: transparent;
-            box-shadow: none;
-        }
-        
-        .header.transparent .logo,
-        .header.transparent .nav-links a {
-            color: var(--white);
-        }
-        
-        .header.hidden {
-            transform: translateY(-100%);
-        }
-        
-        .header.scrolled {
-            background-color: var(--white);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .header.scrolled .logo,
-        .header.scrolled .nav-links a {
-            color: var(--text-dark);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
-            padding: 0 clamp(1rem, 5vw, 2rem);
-        }
-        
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary);
-            margin: 0;
-            transition: color var(--transition-fast);
-            position: relative;
-            z-index: 1001;
-        }
-        
-        .logo a {
-            color: inherit;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .logo-symbol {
-            font-family: var(--font-heading);
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-full);
-            background-color: var(--primary);
-            color: var(--white);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-        
-        /* ナビゲーション */
-        .nav-toggle {
-            display: block;
-            width: 28px;
-            height: 28px;
-            position: relative;
-            cursor: pointer;
-            z-index: 1001;
-            background: none;
-            border: none;
-        }
-        
-        .nav-toggle span {
-            display: block;
-            position: absolute;
-            height: 3px;
-            width: 100%;
-            background: var(--primary);
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
-            transition: .25s ease-in-out;
-            border-radius: 3px;
-        }
-        
-        .header.transparent .nav-toggle span {
-            background: var(--white);
-        }
-        
-        .header.scrolled .nav-toggle span {
-            background: var(--primary);
-        }
-        
-        .nav-toggle span:nth-child(1) {
-            top: 6px;
-        }
-        
-        .nav-toggle span:nth-child(2) {
-            top: 16px;
-        }
-        
-        .nav-toggle span:nth-child(3) {
-            top: 26px;
-        }
-        
-        .nav-toggle.active span:nth-child(1) {
-            top: 16px;
-            transform: rotate(135deg);
-        }
-        
-        .nav-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .nav-toggle.active span:nth-child(3) {
-            top: 16px;
-            transform: rotate(-135deg);
-        }
-        
-        .nav-menu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 80%;
-            max-width: 400px;
-            height: 100vh;
-            background-color: var(--white);
-            padding: 100px clamp(1.5rem, 5vw, 3rem) clamp(1.5rem, 5vw, 3rem);
-            transform: translateX(100%);
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-            z-index: 1000;
-            box-shadow: var(--shadow-xl);
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .nav-menu.active {
-            transform: translateX(0);
-        }
-        
-        .nav-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity var(--transition-normal), visibility var(--transition-normal);
-        }
-        
-        .nav-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .nav-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .nav-links li {
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-        }
-        
-        .nav-links li:last-child {
-            margin-bottom: 0;
-        }
-        
-        .nav-links a {
-            display: block;
-            color: var(--text-dark);
-            font-size: 1.1rem;
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-            transform: translateY(0);
-            transition: transform var(--transition-fast), color var(--transition-fast);
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transition: width var(--transition-normal);
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-cta {
-            margin-top: auto;
-            padding-top: 2rem;
-        }
-        
-        /* デスクトップナビゲーション */
-        @media (min-width: 992px) {
-            .nav-toggle {
-                display: none;
-            }
-            
-            .nav-menu {
-                position: static;
-                width: auto;
-                height: auto;
-                padding: 0;
-                transform: none;
-                background: none;
-                box-shadow: none;
-                overflow: visible;
-                flex-direction: row;
-                align-items: center;
-            }
-            
-            .nav-links {
-                display: flex;
-                align-items: center;
-            }
-            
-            .nav-links li {
-                margin: 0 0 0 1.5rem;
-            }
-            
-            .nav-overlay {
-                display: none;
-            }
-            
-            .nav-cta {
-                margin-top: 0;
-                margin-left: 2.5rem;
-                padding-top: 0;
-            }
-        }
-        
-        /* ボタン */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            background-color: var(--primary);
-            color: var(--white);
-            font-weight: 700;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius-md);
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            white-space: nowrap;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            z-index: -1;
-            transition: opacity var(--transition-fast);
-            opacity: 0;
-        }
-        
-        .btn:hover {
-            color: var(--white);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .btn:hover::before {
-            opacity: 1;
-        }
-        
-        .btn:active {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--primary);
-            color: var(--white);
-        }
-        
-        .btn-accent {
-            background-color: var(--accent);
-        }
-        
-        .btn-accent::before {
-            background: linear-gradient(to right, var(--accent), var(--accent-light));
-        }
-        
-        .btn-large {
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-        }
-        
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-        }
-        
-        .btn-rounded {
-            border-radius: var(--radius-full);
-        }
-        
-        .btn-full {
-            width: 100%;
-        }
-        
-        .btn-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            border-radius: var(--radius-full);
-            padding: 0;
-        }
-        
-        /* ヒーローセクション */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 6rem 0;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(to bottom right, var(--primary-dark), var(--primary));
-            color: var(--white);
-            z-index: 1;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("/api/placeholder/1600/900");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-            z-index: -1;
-        }
-        
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 150px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' style='fill:%23ffffff;'/%3E%3C/svg%3E");
-            background-size: cover;
-            background-position: center;
-            z-index: 0;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            color: var(--white);
-            line-height: 1.1;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .hero-title::after {
-            content: '';
-            position: absolute;
-            bottom: -0.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-        
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
-            font-weight: 400;
-            margin-bottom: 2.5rem;
-            color: rgba(255, 255, 255, 0.9);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .hero-scroll {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-            animation: bounce 2s infinite;
-            z-index: 2;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0) translateX(-50%);
-            }
-            40% {
-                transform: translateY(-20px) translateX(-50%);
-            }
-            60% {
-                transform: translateY(-10px) translateX(-50%);
-            }
-        }
-        
-        /* 特徴セクション */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feature-card {
-            background-color: var(--white);
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-            position: relative;
-            overflow: hidden;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-        }
-        
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: var(--radius-md);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            position: relative;
-            z-index: 1;
-            color: var(--white);
-        }
-        
-        .feature-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: var(--radius-md);
-            z-index: -1;
-        }
-        
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .feature-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-        
-        .feature-description {
-            color: var(--text-light);
-            font-size: 1rem;
-            line-height: 1.7;
-            flex-grow: 1;
-        }
-        
-        /* 統計セクション */
-        .stats-wrapper {
-            position: relative;
-            background-color: var(--white);
-            border-radius: var(--radius-lg);
-            padding: 3rem 2rem;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            z-index: 1;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stats-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(58, 90, 120, 0.05), rgba(230, 126, 34, 0.05));
-            z-index: -1;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            position: relative;
-        }
-        
-        .stat-item::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 20%;
-            height: 60%;
-            width: 1px;
-            background-color: var(--gray);
-        }
-        
-        .stat-item:last-child::after {
-            display: none;
-        }
-        
-        .stat-number {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            line-height: 1;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .stat-number::after {
-            content: '+';
-            position: absolute;
-            top: 0;
-            right: -15px;
-            font-size: 40%;
-            color: var(--accent);
-        }
-        
-        .stat-label {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            font-weight: 500;
-        }
-        
-        @media (max-width: 767px) {
-            .stat-item::after {
-                display: none;
-            }
-            
-            .stat-item {
-                border-bottom: 1px solid var(--gray);
-                padding-bottom: 2rem;
-            }
-            
-            .stat-item:last-child {
-                border-bottom: none;
-            }
-        }
-        
-        /* アクティビティセクション */
-        .activities-slider {
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            margin: 3rem 0;
-        }
-        
-        .activities-track {
-            display: flex;
-            transition: transform var(--transition-slow);
-        }
-        
-        .activity-slide {
-            flex: 0 0 100%;
-            background-color: var(--white);
-            padding: 3rem 2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .activity-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: var(--radius-full);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .activity-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-dark);
-        }
-        
-        .activity-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .activities-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .activity-nav-arrow {
-            width: 50px;
-            height: 50px;
-            border-radius: var(--radius-full);
-            background-color: var(--white);
-            color: var(--primary);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-            box-shadow: var(--shadow);
-        }
-        
-        .activity-nav-arrow:hover {
-            background-color: var(--primary);
-            color: var(--white);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .activity-nav-dots {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-        
-        .activity-nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: var(--radius-full);
-            background-color: var(--gray);
-            cursor: pointer;
-            transition: background-color var(--transition-fast), transform var(--transition-fast);
-        }
-        
-        .activity-nav-dot.active {
-            background-color: var(--primary);
-            transform: scale(1.3);
-        }
-        
-        /* イベントセクション */
-        .events-section {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .events-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("/api/placeholder/1600/900");
-            background-size: cover;
-            background-position: center;
-            opacity: 0.05;
-            z-index: 0;
-        }
-        
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .event-card {
-            background-color: var(--white);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-            position: relative;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .event-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-        }
-        
-        .event-image {
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .event-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
-            z-index: 1;
-        }
-        
-        .event-date-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 0.9rem;
-            z-index: 2;
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .event-content {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .event-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .event-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-        
-        .event-details {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-        
-        .event-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1rem;
-            border-top: 1px solid var(--gray-light);
-            margin-top: auto;
-        }
-        
-        .event-location {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-        
-        .event-button {
-            font-size: 0.9rem;
-        }
-        
-        /* メンバーセクション */
-        .members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .member-card {
-            background-color: var(--white);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-            position: relative;
-            height: 100%;
-        }
-        
-        .member-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-        }
-        
-        .member-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            padding: 2.5rem 1.5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .member-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
-            z-index: 0;
-        }
-        
-        .member-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: var(--radius-full);
-            background-color: var(--white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--primary);
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 0 auto 1.5rem;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            z-index: 1;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .member-info {
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .member-name {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-        }
-        
-        .member-position {
-            display: inline-block;
-            font-size: 0.9rem;
-            color: var(--white);
-            background-color: var(--primary);
-            padding: 0.3rem 1rem;
-            border-radius: var(--radius-full);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-        }
-        
-        .member-bio {
-            font-size: 1rem;
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-        
-        .member-social {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .member-social-link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-full);
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-        }
-        
-        .member-social-link:hover {
-            background-color: var(--primary);
-            color: var(--white);
-            transform: translateY(-3px);
-        }
-        
-        /* 入会セクション */
-        .join-section {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            color: var(--white);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .join-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
-            z-index: 0;
-        }
-        
-        .join-section .section-title {
-            color: var(--white);
-        }
-        
-        .join-section .section-title::after {
-            background: var(--white);
-        }
-        
-        .join-section .section-description {
-            color: rgba(255, 255, 255, 0.85);
-            max-width: 800px;
-        }
-        
-        .join-content {
-            background-color: var(--white);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-xl);
-            position: relative;
-            z-index: 1;
-        }
-        
-        .join-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-        }
-        
-        @media (min-width: 992px) {
-            .join-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        
-        .benefits-col {
-            padding: 2.5rem;
-            position: relative;
-        }
-        
-        .benefits-title {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-dark);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .benefits-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-        
-        .benefits-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .benefits-item {
-            position: relative;
-            padding-left: 2rem;
-            margin-bottom: 1.2rem;
-            font-size: 1.1rem;
-            color: var(--text-light);
-        }
-        
-        .benefits-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .benefits-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(58, 90, 120, 0.1);
-            border-radius: var(--radius-full);
-        }
-        
-        .benefits-item::after {
-            content: '✓';
-            position: absolute;
-            left: 0.4rem;
-            top: 0.15rem;
-            font-size: 0.9rem;
-            color: var(--primary);
-            font-weight: 700;
-        }
-        
-        .fees-table {
-            margin-top: 2rem;
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .fees-table th,
-        .fees-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        .fees-table th {
-            font-weight: 700;
-            color: var(--text-dark);
-            background-color: var(--gray-light);
-        }
-        
-        .fee-amount {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .form-col {
-            padding: 2.5rem;
-            background-color: var(--secondary);
-        }
-        
-        .form-title {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-dark);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .form-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--text-dark);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid var(--gray);
-            border-radius: var(--radius-md);
-            font-family: var(--font-body);
-            font-size: 1rem;
-            background-color: var(--white);
-            color: var(--text-dark);
-            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(58, 90, 120, 0.2);
-        }
-        
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .form-text {
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-        
-        /* お問い合わせセクション */
-        .contact-section {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("/api/placeholder/1600/900");
-            background-size: cover;
-            background-position: center;
-            opacity: 0.05;
-            z-index: 0;
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        @media (min-width: 992px) {
-            .contact-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .contact-card {
-            background-color: var(--white);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: flex-start;
-            gap: 1.2rem;
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-        }
-        
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .contact-icon {
-            flex-shrink: 0;
-            width: 50px;
-            height: 50px;
-            border-radius: var(--radius-full);
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--white);
-            font-size: 1.2rem;
-            box-shadow: var(--shadow);
-        }
-        
-        .contact-details {
-            flex-grow: 1;
-        }
-        
-        .contact-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-        }
-        
-        .contact-text {
-            color: var(--text-light);
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-        
-        .map-wrapper {
-            height: 300px;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin-top: 2rem;
-        }
-        
-        .map-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        
-        .contact-form-card {
-            background-color: var(--white);
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-        }
-        
-        /* テストにモニアル */
-        .testimonials-section {
-            background-color: var(--secondary);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .testimonials-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0h2.827zM5.373 0l-.83.828L5.96 2.243 8.2 0H5.374zM48.97 0l3.657 3.657-1.414 1.414L46.143 0h2.828zM11.03 0L7.372 3.657 8.787 5.07 13.857 0H11.03zm32.284 0L49.8 6.485 48.384 7.9l-7.9-7.9h2.83zM16.686 0L10.2 6.485 11.616 7.9l7.9-7.9h-2.83zm20.97 0l9.315 9.314-1.414 1.414L34.828 0h2.83zM22.344 0L13.03 9.314l1.414 1.414L25.172 0h-2.83zM32 0l12.142 12.142-1.414 1.414L30 .828 17.272 13.556l-1.414-1.414L28 0h4zM.284 0l28 28-1.414 1.414L0 2.544l.284-2.544zM0 5.373l25.456 25.455-1.414 1.415L0 8.2V5.374zm0 5.656l22.627 22.627-1.414 1.414L0 13.86v-2.83zm0 5.656l19.8 19.8-1.415 1.413L0 19.514v-2.83zm0 5.657l16.97 16.97-1.414 1.415L0 25.172v-2.83zM0 28l14.142 14.142-1.414 1.414L0 30.828V28zm0 5.657L11.314 44.97l-1.414 1.414L0 36.485v-2.83zm0 5.657L8.485 47.8l-1.414 1.414L0 42.142v-2.83zm0 5.657l5.657 5.657-1.414 1.415L0 47.8v-2.83zm0 5.657l2.828 2.83-1.414 1.413L0 53.456v-2.83zM54.627 60L30 35.373 5.373 60H8.2L30 38.2 51.8 60h2.827zm-5.656 0L30 41.03 11.03 60h2.828L30 43.858 46.142 60h2.83zm-5.656 0L30 46.686 16.686 60h2.83L30 49.515 40.485 60h2.83zm-5.657 0L30 52.343 22.344 60h2.83L30 55.172 34.828 60h2.83zM32 60l-2-2-2 2h4zM59.716 0l-28 28 1.414 1.414L60 2.544 59.716 0zM60 5.373L34.544 30.828l1.414 1.415L60 8.2V5.374zm0 5.656L37.373 33.656l1.414 1.414L60 13.86v-2.83zm0 5.656l-19.8 19.8 1.415 1.413L60 19.514v-2.83zm0 5.657l-16.97 16.97 1.414 1.415L60 25.172v-2.83zM60 28L45.858 42.142l1.414 1.414L60 30.828V28zm0 5.657L48.686 44.97l1.414 1.414L60 36.485v-2.83zm0 5.657L51.515 47.8l1.414 1.414L60 42.142v-2.83zm0 5.657l-5.657 5.657 1.414 1.415L60 47.8v-2.83zm0 5.657l-2.828 2.83 1.414 1.413L60 53.456v-2.83zM39.9 16.385l1.414-1.414L30 3.658 18.686 14.97l1.415 1.415 9.9-9.9 9.9 9.9zm-2.83 2.828l1.415-1.414L30 9.313 21.515 17.8l1.414 1.413L30 11.8l7.07 7.07zm-2.827 2.83l1.414-1.416L30 14.97l-5.657 5.657 1.414 1.415L30 17.8l4.243 4.242zm-2.83 2.827l1.415-1.414L30 20.626l-2.828 2.83 1.414 1.414L30 23.456l1.414 1.414zM56.87 59.414L58.284 58 30 29.716 1.716 58l1.414 1.414L30 32.544l26.87 26.87z' fill='%23000000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            z-index: 0;
-        }
-        
-        .testimonials-slider {
-            position: relative;
-            overflow: hidden;
-            margin: 3rem 0;
-        }
-        
-        .testimonials-track {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-        
-        .testimonial-slide {
-            flex: 0 0 100%;
-            padding: 0 1rem;
-        }
-        
-        .testimonial-card {
-            background-color: var(--white);
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-        
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: -30px;
-            left: 20px;
-            font-size: 6rem;
-            color: var(--primary);
-            opacity: 0.2;
-            font-family: serif;
-            line-height: 1;
-        }
-        
-        .testimonial-content {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .testimonial-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: var(--radius-full);
-            background-color: var(--primary-light);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--white);
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-        
-        .testimonial-info {
-            flex-grow: 1;
-        }
-        
-        .testimonial-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 0.2rem;
-        }
-        
-        .testimonial-position {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-        
-        .testimonials-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        /* フッター */
-        .footer {
-            background-color: var(--primary-dark);
-            color: var(--white);
-            padding: 5rem 0 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.1;
-            z-index: 0;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .footer-branding {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .footer-logo {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-        
-        .footer-text {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-heading {
-            font-size: 1.3rem;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .footer-heading::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-        
-        .footer-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            transition: color var(--transition-fast), transform var(--transition-fast);
-            display: inline-block;
-        }
-        
-        .footer-links a:hover {
-            color: var(--white);
-            transform: translateX(5px);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .social-link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            border-radius: var(--radius-full);
-            transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-        }
-        
-        .social-link:hover {
-            background-color: var(--white);
-            color: var(--primary);
-            transform: translateY(-5px);
-        }
-        
-        .footer-bottom {
-            margin-top: 4rem;
-            padding: 1.5rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        /* スクロールトップボタン */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary);
-            color: var(--white);
-            border-radius: var(--radius-full);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: var(--shadow-lg);
-            cursor: pointer;
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity var(--transition-fast), visibility var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
-        }
-        
-        .scroll-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .scroll-top:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-5px);
-        }
-        
-        /* ユーティリティクラス */
-        .text-primary {
-            color: var(--primary);
-        }
-        
-        .text-accent {
-            color: var(--accent);
-        }
-        
-        .text-white {
-            color: var(--white);
-        }
-        
-        .text-dark {
-            color: var(--text-dark);
-        }
-        
-        .text-light {
-            color: var(--text-light);
-        }
-        
-        .bg-primary {
-            background-color: var(--primary);
-        }
-        
-        .bg-accent {
-            background-color: var(--accent);
-        }
-        
-        .bg-secondary {
-            background-color: var(--secondary);
-        }
-        
-        .bg-white {
-            background-color: var(--white);
-        }
-        
-        .shadow-sm {
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .shadow {
-            box-shadow: var(--shadow);
-        }
-        
-        .shadow-md {
-            box-shadow: var(--shadow-md);
-        }
-        
-        .shadow-lg {
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .shadow-xl {
-            box-shadow: var(--shadow-xl);
-        }
-        
-        .rounded-sm {
-            border-radius: var(--radius-sm);
-        }
-        
-        .rounded {
-            border-radius: var(--radius-md);
-        }
-        
-        .rounded-lg {
-            border-radius: var(--radius-lg);
-        }
-        
-        .rounded-full {
-            border-radius: var(--radius-full);
-        }
-        
-        /* ダークモード切り替え */
-        .theme-toggle {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--white);
-            color: var(--primary);
-            border-radius: var(--radius-full);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: var(--shadow-lg);
-            cursor: pointer;
-            z-index: 99;
-            border: none;
-            font-size: 1.2rem;
-            transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-        }
-        
-        .theme-toggle:hover {
-            transform: translateY(-5px);
-        }
-        
-        /* アニメーションキーフレーム */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        
-       /* プリローダー */
-.preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--white);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大場会 | 石巻市の経営者団体</title>
+  <!-- アイコンフォントなどが必要な場合はCDNを読み込み -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@400;500;600;700&display=swap">
+  <style>
+    /*------------------------------
+      リセット & ベース
+    -------------------------------*/
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      line-height: 1.6;
+      color: #333; /* ダークグレーで文字色 */
+      background-color: #fff;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Shippori Mincho', serif;
+      color: #222;
+      margin-bottom: 0.5rem;
+    }
 
-.preloader.loaded {
-    opacity: 0;
-    visibility: hidden;
-}
+    /*------------------------------
+      カラーバリエーション
+      - オレンジ×ティール(青緑) 
+    -------------------------------*/
+    :root {
+      --primary: #F59E0B;   /* オレンジ系 (例: Tailwindのamber-500相当) */
+      --primary-dark: #D97706; /* もう少し濃いオレンジ */
+      --accent: #0D9488;   /* ティール系 (例: Tailwindのteal-600相当) */
+      --accent-dark: #0F766E;
+      --text-dark: #333;   /* ベース文字色 */
+      --text-light: #666;  /* サブ文字色 */
+      --white: #fff;
+      --gray-light: #f5f5f5;
+      --gray: #e5e5e5;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-full: 9999px;
+      --shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      --transition: 0.3s ease;
+      --section-padding: 3rem 1rem;
+      --max-width: 1200px;
+    }
 
-.loader {
-    width: 50px;
-    height: 50px;
-    border: 4px solid rgba(58, 90, 120, 0.1);
-    border-radius: 50%;
-    border-top: 4px solid var(--primary);
-    animation: spin 1s linear infinite;
-}
+    /*------------------------------
+      ヘッダー
+    -------------------------------*/
+    header {
+      width: 100%;
+      background-color: var(--white);
+      position: fixed;
+      top: 0;
+      left: 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .header-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo-symbol {
+      display: inline-flex;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1.2rem;
+      align-items: center;
+      justify-content: center;
+    }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-    </style>
+    /* ナビゲーション（モバイル） */
+    .nav-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 32px;
+      height: 32px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+    .nav-menu {
+      position: fixed;
+      top: 64px;
+      right: 0;
+      width: 70%;
+      max-width: 300px;
+      height: calc(100vh - 64px);
+      background-color: var(--white);
+      box-shadow: -2px 0 6px rgba(0,0,0,0.1);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      padding: 2rem;
+    }
+    .nav-menu.active {
+      transform: translateX(0);
+    }
+    .nav-links li {
+      margin-bottom: 1.5rem;
+    }
+    .nav-links a {
+      color: var(--text-dark);
+      font-size: 1rem;
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+    /* CTAボタン */
+    .nav-cta {
+      margin-top: 2rem;
+    }
+    .nav-cta a {
+      display: inline-block;
+      background-color: var(--accent);
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+    .nav-cta a:hover {
+      background-color: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    /* デスクトップナビゲーション */
+    @media (min-width: 768px) {
+      .nav-toggle {
+        display: none;
+      }
+      .nav-menu {
+        position: static;
+        transform: none;
+        height: auto;
+        box-shadow: none;
+        width: auto;
+        max-width: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .nav-links li {
+        margin-bottom: 0;
+      }
+      .nav-cta {
+        margin: 0 0 0 1.5rem;
+      }
+    }
+
+    /*------------------------------
+      ヒーローセクション
+    -------------------------------*/
+    #hero {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 5rem 1rem;
+      text-align: center;
+      margin-top: 64px; /* ヘッダー固定分の余白 */
+    }
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #fff;
+      line-height: 1.8;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .hero-buttons a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+    .hero-buttons .btn-primary {
+      background-color: var(--accent);
+      color: var(--white);
+    }
+    .hero-buttons .btn-primary:hover {
+      background-color: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+    .hero-buttons .btn-secondary {
+      background-color: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+    .hero-buttons .btn-secondary:hover {
+      background-color: #fff;
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /*------------------------------
+      セクション共通
+    -------------------------------*/
+    .section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--section-padding);
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .section-description {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    /*------------------------------
+      フューチャー / 特徴
+    -------------------------------*/
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .feature-card {
+      background-color: var(--gray-light);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .feature-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      color: #222;
+    }
+    .feature-description {
+      color: var(--text-light);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    /*------------------------------
+      統計（例: 会員数など）
+    -------------------------------*/
+    .stats-wrapper {
+      background-color: var(--gray-light);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-item {
+      font-weight: 700;
+    }
+    .stat-number {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /*------------------------------
+      イベント一覧
+    -------------------------------*/
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .event-card {
+      border: 1px solid var(--gray);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .event-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    /* イメージは削除してシンプルに */
+    .event-header {
+      background-color: var(--accent);
+      color: var(--white);
+      padding: 1rem;
+    }
+    .event-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      font-weight: 700;
+    }
+    .event-date {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .event-content {
+      padding: 1rem;
+      flex-grow: 1;
+    }
+    .event-footer {
+      padding: 1rem;
+      border-top: 1px solid var(--gray);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .event-location {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    .event-button {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+    .event-button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /*------------------------------
+      会員カード
+    -------------------------------*/
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .member-card {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .member-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .member-header {
+      background-color: var(--primary-dark);
+      color: var(--white);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .member-avatar {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1rem;
+      border-radius: var(--radius-full);
+      background-color: var(--white);
+      color: var(--primary-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .member-info {
+      padding: 1rem;
+      text-align: center;
+    }
+    .member-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .member-position {
+      display: inline-block;
+      background-color: var(--accent);
+      color: var(--white);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .member-bio {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .member-social {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .member-social-link {
+      color: var(--primary);
+      font-size: 1rem;
+      transition: color var(--transition), transform var(--transition);
+    }
+    .member-social-link:hover {
+      color: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    /*------------------------------
+      入会案内
+    -------------------------------*/
+    .join-section {
+      background-color: #fff;
+      border-top: 1px solid var(--gray);
+    }
+    .join-content {
+      background-color: var(--gray-light);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+    }
+    .join-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 992px) {
+      .join-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .benefits-col {
+      padding: 1rem;
+    }
+    .benefits-title {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #222;
+    }
+    .benefits-list {
+      margin: 1rem 0;
+    }
+    .benefits-item {
+      margin-bottom: 0.8rem;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+    .fees-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .fees-table th,
+    .fees-table td {
+      border-bottom: 1px solid var(--gray);
+      padding: 0.75rem;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+    .fee-amount {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .form-col {
+      background-color: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+    .form-title {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #222;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #333;
+    }
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--gray);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-group .flex {
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-full {
+      width: 100%;
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+    .btn-full:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /*------------------------------
+      お問い合わせ
+    -------------------------------*/
+    .contact-section {
+      background-color: #fff;
+      border-top: 1px solid var(--gray);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    @media (min-width: 992px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .contact-card {
+      display: flex;
+      gap: 1rem;
+      background-color: var(--gray-light);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      align-items: center;
+    }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background-color: var(--accent);
+      color: var(--white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-details {
+      font-size: 0.95rem;
+    }
+    .contact-title {
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .map-wrapper {
+      margin-top: 1rem;
+      width: 100%;
+      height: 250px;
+      background-color: var(--gray-light);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    .map-wrapper i {
+      margin-right: 0.5rem;
+    }
+    .contact-form-card {
+      background-color: var(--gray-light);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    /*------------------------------
+      フッター
+    -------------------------------*/
+    .footer {
+      background-color: var(--accent-dark);
+      color: #fff;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    .footer-grid {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      display: inline-block;
+      color: #fff;
+    }
+    .footer-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .footer-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.95rem;
+      transition: color var(--transition);
+    }
+    .footer-links a:hover {
+      color: #fff;
+    }
+    .social-links {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .social-link {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      background-color: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+    .social-link:hover {
+      background-color: #fff;
+      color: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    /*------------------------------
+      スクロールトップボタン
+      （必要なら使用）
+    -------------------------------*/
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      background-color: var(--primary);
+      color: #fff;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition), transform var(--transition);
+      z-index: 999;
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+  </style>
 </head>
 <body>
-    <!-- プリローダー -->
-    <div class="preloader">
-        <div class="loader"></div>
-    </div>
-    
-    <!-- ヘッダー -->
-    <header class="header">
-        <div class="header-container">
-            <h1 class="logo">
-                <a href="#hero">
-                    <span class="logo-symbol">大</span>
-                    <span>大場会</span>
-                </a>
-            </h1>
-            
-            <button class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <nav class="nav-menu">
-                <ul class="nav-links">
-                    <li><a href="#hero">ホーム</a></li>
-                    <li><a href="#about">大場会について</a></li>
-                    <li><a href="#activities">活動内容</a></li>
-                    <li><a href="#events">イベント</a></li>
-                    <li><a href="#members">会員情報</a></li>
-                    <li><a href="#join">入会案内</a></li>
-                    <li><a href="#contact">お問い合わせ</a></li>
-                </ul>
-                
-                <div class="nav-cta">
-                    <a href="#join" class="btn btn-accent">今すぐ入会する <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </nav>
-        </div>
-    </header>
-    
-    <div class="nav-overlay"></div>
-    
-    <!-- ヒーローセクション -->
-    <section id="hero" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title fade-in">大場会</h1>
-                <p class="hero-subtitle fade-in">石巻市を拠点に、経営者の相互成長と地域社会の発展に貢献する団体</p>
-                <div class="hero-buttons fade-in">
-                    <a href="#about" class="btn btn-large">詳しく見る <i class="fas fa-chevron-right"></i></a>
-                    <a href="#contact" class="btn btn-secondary btn-large">お問い合わせ</a>
-                </div>
-            </div>
-        </div>
-        
-        <a href="#about" class="hero-scroll">
-            <i class="fas fa-chevron-down"></i>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+      <h1 class="logo">
+        <a href="#hero">
+          <span class="logo-symbol">大</span>
+          <span>大場会</span>
         </a>
-    </section>
-    
-    <!-- アバウトセクション -->
-    <section id="about" class="section">
-        <div class="container text-center">
-            <h2 class="section-title fade-in">大場会について</h2>
-            <p class="section-description fade-in">大場会は石巻市を拠点に活動する地域密着型の経営者団体です。会員同士の交流を通じて、経営者としての資質向上と地域社会の発展に貢献することを目指しています。</p>
-            
-            <div class="stats-wrapper fade-in">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number" data-count="70">0</div>
-                        <div class="stat-label">会員数</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-count="8">0</div>
-                        <div class="stat-label">活動実績（年）</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-count="35">0</div>
-                        <div class="stat-label">年間イベント</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-count="12">0</div>
-                        <div class="stat-label">協力企業</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <h3 class="feature-title">伝統と歴史</h3>
-                    <p class="feature-description">石巻市で長年にわたる伝統と歴史を大切にしながら、時代に合わせた活動を展開しています。地域に根差した活動を通じて、地元企業の発展と繁栄を支援しています。</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="feature-title">コミュニティの力</h3>
-                    <p class="feature-description">多様なバックグラウンドを持つメンバーが集まり、互いに支え合いながら成長しています。異業種交流を通じて新たなビジネスチャンスを創出し、会員企業の発展を促進します。</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3 class="feature-title">未来への展望</h3>
-                    <p class="feature-description">常に新しいアイデアや技術を取り入れ、未来を見据えた活動を行っています。石巻市の経済発展と地域活性化に貢献するため、革新的な取り組みを積極的に推進しています。</p>
-                </div>
-            </div>
+      </h1>
+      <button class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-menu">
+        <ul class="nav-links">
+          <li><a href="#hero">ホーム</a></li>
+          <li><a href="#about">大場会について</a></li>
+          <li><a href="#activities">活動内容</a></li>
+          <li><a href="#events">イベント</a></li>
+          <li><a href="#members">会員情報</a></li>
+          <li><a href="#join">入会案内</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="#join">今すぐ入会する <i class="fas fa-arrow-right"></i></a>
         </div>
-    </section>
-    
-    <!-- アクティビティセクション -->
-    <section id="activities" class="section section-light section-pattern">
-        <div class="container text-center">
-            <h2 class="section-title fade-in">活動内容</h2>
-            <p class="section-description fade-in">大場会ではさまざまな活動を通して、会員の成長と地域社会への貢献を目指しています。</p>
-            
-            <div class="activities-slider fade-in">
-                <div class="activities-track">
-                    <div class="activity-slide">
-                        <div class="activity-icon">
-                            <i class="fas fa-coffee"></i>
-                        </div>
-                        <h3 class="activity-title">定例朝会</h3>
-                        <p class="activity-description">毎月第2・第4火曜日の朝6:00から石巻グランドホテルにて開催。経営や人生に役立つ講話と会員同士の交流の場です。朝から活力をチャージし、1日を有意義にスタートします。</p>
-                        <a href="#join" class="btn">参加してみる <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    
-                    <div class="activity-slide">
-                        <div class="activity-icon">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                        </div>
-                        <h3 class="activity-title">経営研修会</h3>
-                        <p class="activity-description">四半期ごとに開催される経営に関する研修会。専門家を招いての講演やワークショップを通じて、経営スキルの向上を図ります。会員のビジネス成長を強力にサポートします。</p>
-                        <a href="#events" class="btn">イベント情報 <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    
-                    <div class="activity-slide">
-                        <div class="activity-icon">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <h3 class="activity-title">地域貢献活動</h3>
-                        <p class="activity-description">石巻市の発展に貢献するための様々な活動を実施。地域清掃、イベント協賛、子供向け職業体験など、地域社会との共生を大切にしています。</p>
-                        <a href="#contact" class="btn">お問い合わせ <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="activities-nav">
-                <div class="activity-nav-arrow prev-activity">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
-                <div class="activity-nav-dots">
-                    <div class="activity-nav-dot active" data-slide="0"></div>
-                    <div class="activity-nav-dot" data-slide="1"></div>
-                    <div class="activity-nav-dot" data-slide="2"></div>
-                </div>
-                <div class="activity-nav-arrow next-activity">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- イベントセクション -->
-    <section id="events" class="section events-section">
-        <div class="container">
-            <h2 class="section-title text-center fade-in">今後の予定</h2>
-            <p class="section-description fade-in">大場会では定期的にさまざまなイベントを開催しています。会員以外の方も参加できるイベントもございますので、ぜひご参加ください。</p>
-            
-            <div class="events-grid">
-                <div class="event-card fade-in">
-                    <div class="event-image">
-                        <img src="/api/placeholder/600/400" alt="春季総会・特別講演会" />
-                        <div class="event-date-badge">2025年4月15日</div>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">春季総会・特別講演会</h3>
-                        <div class="event-details">
-                            <p><strong>場所：</strong>石巻グランドホテル 大宴会場</p>
-                            <p><strong>時間：</strong>18:00～20:30</p>
-                            <p><strong>講師：</strong>大場正之 代表</p>
-                            <p>春季の総会と併せて、代表による特別講演会を開催します。経営者として大切にすべき心構えについてお話しいただきます。</p>
-                        </div>
-                        <div class="event-footer">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i> 石巻市
-                            </div>
-                            <a href="#contact" class="btn btn-small event-button">詳細を見る</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-card fade-in">
-                    <div class="event-image">
-                        <img src="/api/placeholder/600/400" alt="代表大場正之生誕祭" />
-                        <div class="event-date-badge">2025年4月26日</div>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">代表大場正之生誕祭</h3>
-                        <div class="event-details">
-                            <p><strong>場所：</strong>参加者のみ告知</p>
-                            <p><strong>時間：</strong>19:00～21:00</p>
-                            <p>大場会代表の生誕を祝う特別イベントです。会員同士の交流を深める絶好の機会となります。参加希望の方は事前にお申し込みください。</p>
-                        </div>
-                        <div class="event-footer">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i> 非公開
-                            </div>
-                            <a href="#contact" class="btn btn-small event-button">参加申込</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-card fade-in">
-                    <div class="event-image">
-                        <img src="/api/placeholder/600/400" alt="石巻港清掃ボランティア活動" />
-                        <div class="event-date-badge">2025年5月10日</div>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">石巻港清掃ボランティア活動</h3>
-                        <div class="event-details">
-                            <p><strong>場所：</strong>石巻港周辺</p>
-                            <p><strong>時間：</strong>9:00～12:00</p>
-                            <p>石巻港の環境美化に貢献するボランティア活動です。会員だけでなく、ご家族や一般の方も参加いただけます。地域貢献の輪を広げましょう。</p>
-                        </div>
-                        <div class="event-footer">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i> 石巻港
-                            </div>
-                            <a href="#contact" class="btn btn-small event-button">参加申込</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-card fade-in">
-                    <div class="event-image">
-                        <img src="/api/placeholder/600/400" alt="経営セミナー「DXで変わる中小企業の未来」" />
-                        <div class="event-date-badge">2025年6月20日</div>
-                    </div>
-                    <div class="event-content">
-                        <h3 class="event-title">経営セミナー「DXで変わる中小企業の未来」</h3>
-                        <div class="event-details">
-                            <p><strong>場所：</strong>石巻市ビジネスサポートセンター</p>
-                            <p><strong>時間：</strong>14:00～16:00</p>
-                            <p><strong>講師：</strong>ITコンサルタント 山田太郎氏</p>
-                            <p>デジタルトランスフォーメーションが中小企業にもたらす変化と対応策について学ぶセミナーです。最新のIT技術を活用した経営戦略を解説します。</p>
-                        </div>
-                        <div class="event-footer">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i> 石巻市
-                            </div>
-                            <a href="#contact" class="btn btn-small event-button">詳細を見る</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- テスティモニアルセクション -->
-    <section class="section testimonials-section">
-        <div class="container text-center">
-            <h2 class="section-title fade-in">会員の声</h2>
-            <p class="section-description fade-in">大場会の活動に参加された会員の皆様からいただいた声をご紹介します。</p>
-            
-            <div class="testimonials-slider fade-in">
-                <div class="testimonials-track">
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <p class="testimonial-content">「大場会に入会して3年になりますが、異業種の経営者との交流を通じて多くの学びがありました。特に朝会での講話は毎回刺激的で、自分の経営にも活かせる内容ばかりです。」</p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-avatar">佐</div>
-                                <div class="testimonial-info">
-                                    <h4 class="testimonial-name">佐藤 健太</h4>
-                                    <p class="testimonial-position">株式会社サトウ建設</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <p class="testimonial-content">「経営者として孤独を感じることが多かったのですが、大場会に入会してからは同じ悩みを持つ仲間と共有し、解決策を見つけることができるようになりました。この繋がりは何物にも代えがたい財産です。」</p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-avatar">田</div>
-                                <div class="testimonial-info">
-                                    <h4 class="testimonial-name">田中 美咲</h4>
-                                    <p class="testimonial-position">タナカデザイン事務所</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <p class="testimonial-content">「大場会のネットワークを通じて新しいビジネスパートナーを見つけることができました。地域貢献活動にも参加し、社会的責任を果たしながら事業を拡大できることに感謝しています。」</p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-avatar">鈴</div>
-                                <div class="testimonial-info">
-                                    <h4 class="testimonial-name">鈴木 大輔</h4>
-                                    <p class="testimonial-position">スズキIT株式会社</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="activities-nav">
-                <div class="activity-nav-arrow prev-testimonial">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
-                <div class="activity-nav-dots">
-                    <div class="activity-nav-dot active" data-slide="0"></div>
-                    <div class="activity-nav-dot" data-slide="1"></div>
-                    <div class="activity-nav-dot" data-slide="2"></div>
-                </div>
-                <div class="activity-nav-arrow next-testimonial">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- メンバーセクション -->
-    <section id="members" class="section">
-        <div class="container text-center">
-            <h2 class="section-title fade-in">会員情報</h2>
-            <p class="section-description fade-in">大場会は石巻市を中心に活動する様々な業種の経営者・事業者が集まる団体です。会員同士の交流を通じて、ビジネスの発展と地域社会への貢献を目指しています。</p>
-            
-            <div class="members-grid">
-                <div class="member-card fade-in">
-                    <div class="member-header">
-                        <div class="member-avatar">大</div>
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">大場 正之</h3>
-                        <div class="member-position">代表</div>
-                        <p class="member-bio">創業以来、大場会を率いるリーダー。地域経済の活性化に尽力し、多くの経営者から信頼を得ている。豊富な経験と独自の視点を持ち、会員に的確なアドバイスを提供。</p>
-                        <div class="member-social">
-                            <a href="#" class="member-social-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="member-social-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="member-social-link"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="member-card fade-in">
-                    <div class="member-header">
-                        <div class="member-avatar">石</div>
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">石破 翔太</h3>
-                        <div class="member-position">副代表</div>
-                        <p class="member-bio">停滞した現状に一石を投じ、石巻に新たな息吹を吹き込む！ウィットに富んだ発言で会議も盛り上がる、IT界の新星がここに！最新技術に精通し、デジタル化を推進。</p>
-                        <div class="member-social">
-                            <a href="#" class="member-social-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="member-social-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="member-social-link"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="member-card fade-in">
-                    <div class="member-header">
-                        <div class="member-avatar">美</div>
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">藤原 美桜</h3>
-                        <div class="member-position">理事</div>
-                        <p class="member-bio">女性経営者として地域の女性活躍推進に注力。多くの起業家のメンターとしても活動中。金融業界での経験を活かし、会員のビジネス戦略立案をサポートしている。</p>
-                        <div class="member-social">
-                            <a href="#" class="member-social-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="member-social-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="member-social-link"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="member-card fade-in">
-                    <div class="member-header">
-                        <div class="member-avatar">柳</div>
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">柳本 寿兵衛</h3>
-                        <div class="member-position">委員長</div>
-                        <p class="member-bio">地元の老舗酒造企業の3代目。伝統を守りながらも革新的な経営手法を取り入れている。地域の伝統産業と現代のマーケティング手法を融合させるエキスパート。</p>
-                        <div class="member-social">
-                            <a href="#" class="member-social-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="member-social-link"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="member-social-link"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- 入会セクション -->
-    <section id="join" class="section join-section">
-        <div class="container">
-            <h2 class="section-title text-center fade-in">入会のご案内</h2>
-            <p class="section-description fade-in">大場会では、共に学び、共に成長していただける新しい会員を募集しています。</p>
-            
-            <div class="join-content fade-in">
-                <div class="join-grid">
-                    <div class="benefits-col">
-                        <h3 class="benefits-title">会員特典</h3>
-                        <ul class="benefits-list">
-                            <li class="benefits-item">定例会への参加権</li>
-                            <li class="benefits-item">会員専用イベントへの参加</li>
-                            <li class="benefits-item">経営者ネットワークの構築</li>
-                            <li class="benefits-item">ビジネスマッチングの機会</li>
-                            <li class="benefits-item">経営相談サービス</li>
-                            <li class="benefits-item">会員企業のPR支援</li>
-                        </ul>
-                        
-                        <h3 class="benefits-title mt-12">会費について</h3>
-                        <table class="fees-table">
-                            <tr>
-                                <th>入会金</th>
-                                <td><span class="fee-amount">10,000円</span>（入会時のみ）</td>
-                            </tr>
-                            <tr>
-                                <th>年会費</th>
-                                <td><span class="fee-amount">30,000円</span>（年間）</td>
-                            </tr>
-                            <tr>
-                                <th>朝会参加費</th>
-                                <td><span class="fee-amount">3,000円</span>（1回あたり）</td>
-                            </tr>
-                        </table>
-                    </div>
-                    
-                    <div class="form-col">
-                        <h3 class="form-title">入会お問い合わせ</h3>
-                        <form>
-                            <div class="form-group">
-                                <label class="form-label" for="name">お名前 <span class="text-accent">*</span></label>
-                                <input type="text" class="form-control" id="name" placeholder="例：大場 太郎" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="company">会社名 <span class="text-accent">*</span></label>
-                                <input type="text" class="form-control" id="company" placeholder="例：株式会社大場" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="position">役職</label>
-                                <input type="text" class="form-control" id="position" placeholder="例：代表取締役">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="email">メールアドレス <span class="text-accent">*</span></label>
-                                <input type="email" class="form-control" id="email" placeholder="例：info@example.com" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="phone">電話番号 <span class="text-accent">*</span></label>
-                                <input type="tel" class="form-control" id="phone" placeholder="例：090-1234-5678" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="message">お問い合わせ内容</label>
-                                <textarea class="form-control" id="message" placeholder="入会に関するお問い合わせやご質問をご記入ください"></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">業種 <span class="text-accent">*</span></label>
-                                <div class="flex gap-4">
-                                    <label>
-                                        <input type="radio" name="industry" value="製造業"> 製造業
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="industry" value="サービス業"> サービス業
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="industry" value="小売業"> 小売業
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="industry" value="その他"> その他
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>
-                                    <input type="checkbox" id="privacy" required>
-                                    <span>プライバシーポリシーに同意します</span>
-                                </label>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-accent btn-full">送信する <i class="fas fa-paper-plane"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- お問い合わせセクション -->
-    <section id="contact" class="section contact-section">
-        <div class="container">
-            <h2 class="section-title text-center fade-in">お問い合わせ</h2>
-            <p class="section-description fade-in">大場会に関するお問い合わせは、以下の連絡先またはお問い合わせフォームからお願いいたします。</p>
-            
-            <div class="contact-grid">
-                <div class="contact-info fade-in">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3 class="contact-title">所在地</h3>
-                            <p class="contact-text">〒986-0865<br>石巻市新境町2-2-1</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3 class="contact-title">電話番号</h3>
-                            <p class="contact-text">0120-008-008</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3 class="contact-title">メールアドレス</h3>
-                            <p class="contact-text">info@ohba.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3 class="contact-title">受付時間</h3>
-                            <p class="contact-text">平日 12:30～12:45</p>
-                        </div>
-                    </div>
-                    
-                    <div class="map-wrapper">
-                        <iframe 
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3245.123456789!2d141.30245697620418!3d38.32996307198242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8a28ae1b5c6821%3A0xabcdef1234567890!2z44CSOTg2LTA4NjUg5a6u5Z-O55yM55-z5bed5biC5paw5aKD44CS5q2j44CS5ZyL77yS!5e0!3m2!1sja!2sjp!4v1695021235598!5m2!1sja!2sjp"
-                          width="600" 
-                          height="450" 
-                          style="border:0;" 
-                          allowfullscreen="" 
-                          loading="lazy"
-                          referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-                
-                <div class="contact-form-card fade-in">
-                    <h3 class="form-title">お問い合わせフォーム</h3>
-                    <form>
-                        <div class="form-group">
-                            <label class="form-label" for="contact-name">お名前 <span class="text-accent">*</span></label>
-                            <input type="text" class="form-control" id="contact-name" placeholder="例：大場 太郎" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="contact-email">メールアドレス <span class="text-accent">*</span></label>
-                            <input type="email" class="form-control" id="contact-email" placeholder="例：info@example.com" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="contact-subject">件名 <span class="text-accent">*</span></label>
-                            <input type="text" class="form-control" id="contact-subject" placeholder="例：イベントについての質問" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="contact-message">お問い合わせ内容 <span class="text-accent">*</span></label>
-                            <textarea class="form-control" id="contact-message" placeholder="お問い合わせ内容をご記入ください" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" id="contact-privacy" required>
-                                <span>プライバシーポリシーに同意します</span>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-full">送信する <i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- フッター -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-branding">
-                    <a href="#hero" class="footer-logo">大場会</a>
-                    <p class="footer-text">
-                        石巻市を拠点に活動する経営者団体です。会員同士の交流と成長を通じて、地域社会の発展に貢献しています。
-                    </p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="footer-heading">サイトマップ</h3>
-                    <ul class="footer-links">
-                        <li><a href="#hero">ホーム</a></li>
-                        <li><a href="#about">大場会について</a></li>
-                        <li><a href="#activities">活動内容</a></li>
-                        <li><a href="#events">イベント</a></li>
-                        <li><a href="#members">会員情報</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="footer-heading">リンク</h3>
-                    <ul class="footer-links">
-                        <li><a href="#join">入会案内</a></li>
-                        <li><a href="#contact">お問い合わせ</a></li>
-                        <li><a href="#">プライバシーポリシー</a></li>
-                        <li><a href="#">サイトマップ</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="footer-heading">連絡先</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> 〒986-0865 石巻市新境町2-2-1</li>
-                        <li><i class="fas fa-phone"></i> 0120-008-008</li>
-                        <li><i class="fas fa-envelope"></i> info@ohba.com</li>
-                        <li><i class="fas fa-clock"></i> 平日 12:30～12:45</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 大場会 All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-    
-    <!-- スクロールトップボタン -->
-    <div class="scroll-top">
-        <i class="fas fa-arrow-up"></i>
+      </nav>
     </div>
-    
-    <!-- ダークモード切り替えボタン -->
-    <button class="theme-toggle">
-        <i class="fas fa-moon"></i>
-    </button>
-    
-    <script>
-        // DOMが読み込まれたら実行
-        document.addEventListener('DOMContentLoaded', function() {
-            // プリローダー
-            const preloader = document.querySelector('.preloader');
-            window.addEventListener('load', function() {
-                setTimeout(function() {
-                    preloader.classList.add('loaded');
-                }, 500);
-            });
-            
-            // モバイルナビゲーション
-            const navToggle = document.querySelector('.nav-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            const navOverlay = document.querySelector('.nav-overlay');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            
-            navToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                navMenu.classList.toggle('active');
-                navOverlay.classList.toggle('active');
-                document.body.classList.toggle('nav-open');
-            });
-            
-            navOverlay.addEventListener('click', function() {
-                navToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                navOverlay.classList.remove('active');
-                document.body.classList.remove('nav-open');
-            });
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    navToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                    navOverlay.classList.remove('active');
-                    document.body.classList.remove('nav-open');
-                });
-            });
-            
-            // スクロールヘッダー
-            const header = document.querySelector('.header');
-            let lastScrollTop = 0;
-            
-            function updateHeader() {
-                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                if (scrollTop > 100) {
-                    header.classList.add('scrolled');
-                    
-                    if (scrollTop > lastScrollTop && scrollTop > 300) {
-                        header.classList.add('hidden');
-                    } else {
-                        header.classList.remove('hidden');
-                    }
-                } else {
-                    header.classList.remove('scrolled');
-                    
-                    if (scrollTop <= 50) {
-                        header.classList.add('transparent');
-                    } else {
-                        header.classList.remove('transparent');
-                    }
-                }
-                
-                lastScrollTop = scrollTop;
-            }
-            
-            // 初期化時に実行
-            updateHeader();
-            
-            // スクロールイベント
-            window.addEventListener('scroll', updateHeader);
-            
-            // カウンターアップアニメーション
-            const statNumbers = document.querySelectorAll('.stat-number');
-            
-            function startCounter(element) {
-                const target = parseInt(element.getAttribute('data-count'));
-                const duration = 2000; // ミリ秒単位
-                const stepTime = 50; // 更新の頻度
-                const steps = duration / stepTime;
-                const increment = target / steps;
-                let current = 0;
-                
-                const timer = setInterval(function() {
-                    current += increment;
-                    element.textContent = Math.round(current);
-                    
-                    if (current >= target) {
-                        element.textContent = target;
-                        clearInterval(timer);
-                    }
-                }, stepTime);
-            }
-            
-            // スクロールアニメーション
-            const animatedElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in, .stagger-item, .stat-number');
-            
-            const appearOptions = {
-                threshold: 0.15,
-                rootMargin: "0px 0px -100px 0px"
-            };
-            
-            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-                entries.forEach((entry, index) => {
-                    if (!entry.isIntersecting) return;
-                    
-                    if (entry.target.classList.contains('stagger-item')) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, index * 100);
-                    } else {
-                        entry.target.classList.add('visible');
-                    }
-                    
-                    if (entry.target.classList.contains('stat-number')) {
-                        startCounter(entry.target);
-                    }
-                    
-                    appearOnScroll.unobserve(entry.target);
-                });
-            }, appearOptions);
-            
-            animatedElements.forEach(element => {
-                appearOnScroll.observe(element);
-            });
-            
-            // アクティビティスライダー
-            const activitiesTrack = document.querySelector('.activities-track');
-            const activitySlides = document.querySelectorAll('.activity-slide');
-            const activityDots = document.querySelectorAll('.activity-nav-dot');
-            const prevActivity = document.querySelector('.prev-activity');
-            const nextActivity = document.querySelector('.next-activity');
-            let currentSlide = 0;
-            
-            function showSlide(index) {
-                if (index < 0) index = activitySlides.length - 1;
-                if (index >= activitySlides.length) index = 0;
-                
-                currentSlide = index;
-                activitiesTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-                
-                activityDots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === currentSlide);
-                });
-            }
-            
-            prevActivity.addEventListener('click', () => {
-                showSlide(currentSlide - 1);
-            });
-            
-            nextActivity.addEventListener('click', () => {
-                showSlide(currentSlide + 1);
-            });
-            
-            activityDots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    showSlide(index);
-                });
-            });
-            
-            // 自動スライドショー
-            let slideInterval = setInterval(() => {
-                showSlide(currentSlide + 1);
-            }, 5000);
-            
-            // マウスオーバーで自動スライドを停止
-            const sliderContainer = document.querySelector('.activities-slider');
-            
-            sliderContainer.addEventListener('mouseenter', () => {
-                clearInterval(slideInterval);
-            });
-            
-            sliderContainer.addEventListener('mouseleave', () => {
-                slideInterval = setInterval(() => {
-                    showSlide(currentSlide + 1);
-                }, 5000);
-            });
-            
-            // テスティモニアルスライダー
-            const testimonialsTrack = document.querySelector('.testimonials-track');
-            const testimonialSlides = document.querySelectorAll('.testimonial-slide');
-            const testimonialDots = document.querySelectorAll('.testimonials-nav .activity-nav-dot');
-            const prevTestimonial = document.querySelector('.prev-testimonial');
-            const nextTestimonial = document.querySelector('.next-testimonial');
-            let currentTestimonial = 0;
-            
-            function showTestimonial(index) {
-                if (index < 0) index = testimonialSlides.length - 1;
-                if (index >= testimonialSlides.length) index = 0;
-                
-                currentTestimonial = index;
-                testimonialsTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
-                
-                testimonialDots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === currentTestimonial);
-                });
-            }
-            
-            prevTestimonial.addEventListener('click', () => {
-                showTestimonial(currentTestimonial - 1);
-            });
-            
-            nextTestimonial.addEventListener('click', () => {
-                showTestimonial(currentTestimonial + 1);
-            });
-            
-            testimonialDots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    showTestimonial(index);
-                });
-            });
-            
-            // スクロールトップボタン
-            const scrollTopBtn = document.querySelector('.scroll-top');
-            
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    scrollTopBtn.classList.add('visible');
-                } else {
-                    scrollTopBtn.classList.remove('visible');
-                }
-            });
-            
-            scrollTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // ダークモード切り替え
-            const themeToggle = document.querySelector('.theme-toggle');
-            const themeIcon = themeToggle.querySelector('i');
-            
-            // システム設定のダークモード検出
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-            if (prefersDark.matches) {
-                document.documentElement.classList.add('dark-mode');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            }
-            
-            themeToggle.addEventListener('click', function() {
-                document.documentElement.classList.toggle('dark-mode');
-                
-                if (document.documentElement.classList.contains('dark-mode')) {
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                } else {
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                }
-            });
-            
-            // スムーススクロール
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // GSAP ScrollTrigger
-            gsap.registerPlugin(ScrollTrigger);
-            
-            // ヒーローアニメーション
-            gsap.from(".hero-title", {
-                duration: 1,
-                y: 50,
-                opacity: 0,
-                ease: "power3.out"
-            });
-            
-            gsap.from(".hero-subtitle", {
-                duration: 1,
-                y: 30,
-                opacity: 0,
-                ease: "power3.out",
-                delay: 0.3
-            });
-            
-            gsap.from(".hero-buttons", {
-                duration: 1,
-                y: 30,
-                opacity: 0,
-                ease: "power3.out",
-                delay: 0.6
-            });
-            
-            // パララックス効果
-            gsap.to(".hero", {
-                scrollTrigger: {
-                    trigger: ".hero",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true
-                },
-                backgroundPosition: "50% 100%",
-                ease: "none"
-            });
-        });
-    </script>
+  </header>
+
+  <!-- ヒーローセクション -->
+  <section id="hero">
+    <div class="hero-content">
+      <h2 class="hero-title">大場会</h2>
+      <p class="hero-subtitle">
+        石巻市を拠点に、経営者の相互成長と地域社会の発展に貢献する団体
+      </p>
+      <div class="hero-buttons">
+        <a href="#about" class="btn-primary">詳しく見る <i class="fas fa-chevron-right"></i></a>
+        <a href="#contact" class="btn-secondary">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- アバウトセクション -->
+  <section id="about" class="section">
+    <h2 class="section-title">大場会について</h2>
+    <p class="section-description">
+      大場会は石巻市を拠点に活動する地域密着型の経営者団体です。会員同士の交流を通じて、経営者としての資質向上と地域社会の発展に貢献することを目指しています。
+    </p>
+
+    <div class="stats-wrapper">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">70</div>
+          <div class="stat-label">会員数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">8</div>
+          <div class="stat-label">活動実績（年）</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">35</div>
+          <div class="stat-label">年間イベント</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">12</div>
+          <div class="stat-label">協力企業</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-history"></i>
+        </div>
+        <h3 class="feature-title">伝統と歴史</h3>
+        <p class="feature-description">
+          石巻市で長年にわたる伝統と歴史を大切にしながら、時代に合わせた活動を展開しています。地域に根差した活動を通じて、地元企業の発展と繁栄を支援しています。
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3 class="feature-title">コミュニティの力</h3>
+        <p class="feature-description">
+          多様なバックグラウンドを持つメンバーが集まり、互いに支え合いながら成長しています。異業種交流を通じて新たなビジネスチャンスを創出し、会員企業の発展を促進します。
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <h3 class="feature-title">未来への展望</h3>
+        <p class="feature-description">
+          常に新しいアイデアや技術を取り入れ、未来を見据えた活動を行っています。石巻市の経済発展と地域活性化に貢献するため、革新的な取り組みを積極的に推進しています。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 活動内容（例: スライダー削除・簡略化） -->
+  <section id="activities" class="section">
+    <h2 class="section-title">活動内容</h2>
+    <p class="section-description">
+      大場会ではさまざまな活動を通して、会員の成長と地域社会への貢献を目指しています。
+    </p>
+    <!-- シンプルに活動内容をカードで紹介 -->
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-coffee"></i>
+        </div>
+        <h3 class="feature-title">定例朝会</h3>
+        <p class="feature-description">
+          毎月第2・第4火曜日の朝6:00から石巻グランドホテルにて開催。経営や人生に役立つ講話と会員同士の交流の場です。
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-chalkboard-teacher"></i>
+        </div>
+        <h3 class="feature-title">経営研修会</h3>
+        <p class="feature-description">
+          四半期ごとに開催される経営に関する研修会。専門家を招いての講演やワークショップを通じて、経営スキルの向上を図ります。
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-hands-helping"></i>
+        </div>
+        <h3 class="feature-title">地域貢献活動</h3>
+        <p class="feature-description">
+          石巻市の発展に貢献するための様々な活動を実施。地域清掃、イベント協賛、子供向け職業体験など、地域社会との共生を大切にしています。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- イベントセクション -->
+  <section id="events" class="section">
+    <h2 class="section-title">今後の予定</h2>
+    <p class="section-description">
+      大場会では定期的にさまざまなイベントを開催しています。会員以外の方も参加できるイベントもございますので、ぜひご参加ください。
+    </p>
+
+    <div class="events-grid">
+      <!-- イベント1 -->
+      <div class="event-card">
+        <div class="event-header">
+          <h3 class="event-title">春季総会・特別講演会</h3>
+          <div class="event-date">2025年4月15日</div>
+        </div>
+        <div class="event-content">
+          <p><strong>場所：</strong>石巻グランドホテル 大宴会場</p>
+          <p><strong>時間：</strong>18:00～20:30</p>
+          <p><strong>講師：</strong>大場正之 代表</p>
+          <p>
+            春季の総会と併せて、代表による特別講演会を開催します。経営者として大切にすべき心構えについてお話しいただきます。
+          </p>
+        </div>
+        <div class="event-footer">
+          <div class="event-location"><i class="fas fa-map-marker-alt"></i> 石巻市</div>
+          <button class="event-button">詳細を見る</button>
+        </div>
+      </div>
+      <!-- イベント2 -->
+      <div class="event-card">
+        <div class="event-header">
+          <h3 class="event-title">代表大場正之生誕祭</h3>
+          <div class="event-date">2025年4月26日</div>
+        </div>
+        <div class="event-content">
+          <p><strong>場所：</strong>参加者のみ告知</p>
+          <p><strong>時間：</strong>19:00～21:00</p>
+          <p>
+            大場会代表の生誕を祝う特別イベントです。会員同士の交流を深める絶好の機会となります。参加希望の方は事前にお申し込みください。
+          </p>
+        </div>
+        <div class="event-footer">
+          <div class="event-location"><i class="fas fa-map-marker-alt"></i> 非公開</div>
+          <button class="event-button">参加申込</button>
+        </div>
+      </div>
+      <!-- イベント3 -->
+      <div class="event-card">
+        <div class="event-header">
+          <h3 class="event-title">石巻港清掃ボランティア活動</h3>
+          <div class="event-date">2025年5月10日</div>
+        </div>
+        <div class="event-content">
+          <p><strong>場所：</strong>石巻港周辺</p>
+          <p><strong>時間：</strong>9:00～12:00</p>
+          <p>
+            石巻港の環境美化に貢献するボランティア活動です。会員だけでなく、ご家族や一般の方も参加いただけます。地域貢献の輪を広げましょう。
+          </p>
+        </div>
+        <div class="event-footer">
+          <div class="event-location"><i class="fas fa-map-marker-alt"></i> 石巻港</div>
+          <button class="event-button">参加申込</button>
+        </div>
+      </div>
+      <!-- イベント4 -->
+      <div class="event-card">
+        <div class="event-header">
+          <h3 class="event-title">経営セミナー「DXで変わる中小企業の未来」</h3>
+          <div class="event-date">2025年6月20日</div>
+        </div>
+        <div class="event-content">
+          <p><strong>場所：</strong>石巻市ビジネスサポートセンター</p>
+          <p><strong>時間：</strong>14:00～16:00</p>
+          <p><strong>講師：</strong>ITコンサルタント 山田太郎氏</p>
+          <p>
+            デジタルトランスフォーメーションが中小企業にもたらす変化と対応策について学ぶセミナーです。最新のIT技術を活用した経営戦略を解説します。
+          </p>
+        </div>
+        <div class="event-footer">
+          <div class="event-location"><i class="fas fa-map-marker-alt"></i> 石巻市</div>
+          <button class="event-button">詳細を見る</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 会員情報 -->
+  <section id="members" class="section">
+    <h2 class="section-title">会員情報</h2>
+    <p class="section-description">
+      大場会は石巻市を中心に活動する様々な業種の経営者・事業者が集まる団体です。会員同士の交流を通じて、ビジネスの発展と地域社会への貢献を目指しています。
+    </p>
+    <div class="members-grid">
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar">大</div>
+          <h3>大場 正之</h3>
+        </div>
+        <div class="member-info">
+          <div class="member-name">大場 正之</div>
+          <div class="member-position">代表</div>
+          <p class="member-bio">
+            創業以来、大場会を率いるリーダー。地域経済の活性化に尽力し、多くの経営者から信頼を得ている。
+          </p>
+          <div class="member-social">
+            <a href="#" class="member-social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="member-social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="member-social-link"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar">石</div>
+          <h3>石破 翔太</h3>
+        </div>
+        <div class="member-info">
+          <div class="member-name">石破 翔太</div>
+          <div class="member-position">副代表</div>
+          <p class="member-bio">
+            ウィットに富んだ発言で会議も盛り上がる、IT界の新星。最新技術に精通し、デジタル化を推進。
+          </p>
+          <div class="member-social">
+            <a href="#" class="member-social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="member-social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="member-social-link"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar">美</div>
+          <h3>藤原 美桜</h3>
+        </div>
+        <div class="member-info">
+          <div class="member-name">藤原 美桜</div>
+          <div class="member-position">理事</div>
+          <p class="member-bio">
+            女性経営者として地域の女性活躍推進に注力。金融業界での経験を活かし、ビジネス戦略立案をサポート。
+          </p>
+          <div class="member-social">
+            <a href="#" class="member-social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="member-social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="member-social-link"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar">柳</div>
+          <h3>柳本 寿兵衛</h3>
+        </div>
+        <div class="member-info">
+          <div class="member-name">柳本 寿兵衛</div>
+          <div class="member-position">委員長</div>
+          <p class="member-bio">
+            地元の老舗酒造企業の3代目。伝統を守りながらも革新的な経営手法を取り入れ、地域産業の発展を目指す。
+          </p>
+          <div class="member-social">
+            <a href="#" class="member-social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="member-social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="member-social-link"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 入会案内 -->
+  <section id="join" class="section join-section">
+    <h2 class="section-title">入会のご案内</h2>
+    <p class="section-description">
+      大場会では、共に学び、共に成長していただける新しい会員を募集しています。
+    </p>
+
+    <div class="join-content">
+      <div class="join-grid">
+        <div class="benefits-col">
+          <h3 class="benefits-title">会員特典</h3>
+          <ul class="benefits-list">
+            <li class="benefits-item">定例会への参加権</li>
+            <li class="benefits-item">会員専用イベントへの参加</li>
+            <li class="benefits-item">経営者ネットワークの構築</li>
+            <li class="benefits-item">ビジネスマッチングの機会</li>
+            <li class="benefits-item">経営相談サービス</li>
+            <li class="benefits-item">会員企業のPR支援</li>
+          </ul>
+          <h3 class="benefits-title">会費について</h3>
+          <table class="fees-table">
+            <tr>
+              <th>入会金</th>
+              <td><span class="fee-amount">10,000円</span>（入会時のみ）</td>
+            </tr>
+            <tr>
+              <th>年会費</th>
+              <td><span class="fee-amount">30,000円</span>（年間）</td>
+            </tr>
+            <tr>
+              <th>朝会参加費</th>
+              <td><span class="fee-amount">3,000円</span>（1回あたり）</td>
+            </tr>
+          </table>
+        </div>
+        <div class="form-col">
+          <h3 class="form-title">入会お問い合わせ</h3>
+          <form>
+            <div class="form-group">
+              <label class="form-label" for="name">お名前 <span style="color: var(--accent);">*</span></label>
+              <input type="text" class="form-control" id="name" placeholder="例：大場 太郎" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="company">会社名 <span style="color: var(--accent);">*</span></label>
+              <input type="text" class="form-control" id="company" placeholder="例：株式会社大場" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="position">役職</label>
+              <input type="text" class="form-control" id="position" placeholder="例：代表取締役">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">メールアドレス <span style="color: var(--accent);">*</span></label>
+              <input type="email" class="form-control" id="email" placeholder="例：info@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">電話番号 <span style="color: var(--accent);">*</span></label>
+              <input type="tel" class="form-control" id="phone" placeholder="例：090-1234-5678" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">お問い合わせ内容</label>
+              <textarea class="form-control" id="message" placeholder="入会に関するお問い合わせやご質問をご記入ください"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">業種 <span style="color: var(--accent);">*</span></label>
+              <div class="flex">
+                <label><input type="radio" name="industry" value="製造業"> 製造業</label>
+                <label><input type="radio" name="industry" value="サービス業"> サービス業</label>
+                <label><input type="radio" name="industry" value="小売業"> 小売業</label>
+                <label><input type="radio" name="industry" value="その他"> その他</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="privacy" required> 
+                <span>プライバシーポリシーに同意します</span>
+              </label>
+            </div>
+            <button type="submit" class="btn-full">送信する <i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- お問い合わせセクション -->
+  <section id="contact" class="section contact-section">
+    <h2 class="section-title">お問い合わせ</h2>
+    <p class="section-description">
+      大場会に関するお問い合わせは、以下の連絡先またはお問い合わせフォームからお願いいたします。
+    </p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-details">
+            <h3 class="contact-title">所在地</h3>
+            <p>〒986-0865<br>石巻市新境町2-2-1</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-details">
+            <h3 class="contact-title">電話番号</h3>
+            <p>0120-008-008</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-details">
+            <h3 class="contact-title">メールアドレス</h3>
+            <p>info@ohba.com</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-clock"></i></div>
+          <div class="contact-details">
+            <h3 class="contact-title">受付時間</h3>
+            <p>平日 12:30～12:45</p>
+          </div>
+        </div>
+        <!-- シンプルに地図はダミーの表示のみ -->
+        <div class="map-wrapper">
+          <i class="fas fa-map-marker-alt"></i> Google Map
+        </div>
+      </div>
+      <div class="contact-form-card">
+        <h3 class="form-title">お問い合わせフォーム</h3>
+        <form>
+          <div class="form-group">
+            <label class="form-label" for="contact-name">お名前 <span style="color: var(--accent);">*</span></label>
+            <input type="text" class="form-control" id="contact-name" placeholder="例：大場 太郎" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-email">メールアドレス <span style="color: var(--accent);">*</span></label>
+            <input type="email" class="form-control" id="contact-email" placeholder="例：info@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-subject">件名 <span style="color: var(--accent);">*</span></label>
+            <input type="text" class="form-control" id="contact-subject" placeholder="例：イベントについての質問" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-message">お問い合わせ内容 <span style="color: var(--accent);">*</span></label>
+            <textarea class="form-control" id="contact-message" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+          </div>
+          <div class="form-group">
+            <label><input type="checkbox" required> プライバシーポリシーに同意します</label>
+          </div>
+          <button type="submit" class="btn-full">送信する <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <a href="#hero" class="footer-logo">大場会</a>
+        <p class="footer-text">
+          石巻市を拠点に活動する経営者団体です。会員同士の交流と成長を通じて、地域社会の発展に貢献しています。
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h3 class="footer-heading">サイトマップ</h3>
+        <ul class="footer-links">
+          <li><a href="#hero">ホーム</a></li>
+          <li><a href="#about">大場会について</a></li>
+          <li><a href="#activities">活動内容</a></li>
+          <li><a href="#events">イベント</a></li>
+          <li><a href="#members">会員情報</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">リンク</h3>
+        <ul class="footer-links">
+          <li><a href="#join">入会案内</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+          <li><a href="#">プライバシーポリシー</a></li>
+          <li><a href="#">サイトマップ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">連絡先</h3>
+        <ul class="footer-links">
+          <li><i class="fas fa-map-marker-alt"></i> 〒986-0865 石巻市新境町2-2-1</li>
+          <li><i class="fas fa-phone"></i> 0120-008-008</li>
+          <li><i class="fas fa-envelope"></i> info@ohba.com</li>
+          <li><i class="fas fa-clock"></i> 平日 12:30～12:45</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 大場会 All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- スクロールトップボタン（任意） -->
+  <div class="scroll-top" id="scrollTopBtn">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    // モバイルメニュー
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // スクロールトップボタン
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
